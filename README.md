@@ -13,6 +13,7 @@ This repository contains the local ATC and Finnish RTP-LX workbooks, the origina
 - Tokenization/truncation audit: [`artifacts/tokenization/REPORT.md`](artifacts/tokenization/REPORT.md)
 - Lexical/orthographic diagnostic results: [`artifacts/linear_diagnostics/REPORT.md`](artifacts/linear_diagnostics/REPORT.md)
 - Audited revised manuscript working draft: [`manuscript/REVISED_MANUSCRIPT_WORKING_DRAFT.md`](manuscript/REVISED_MANUSCRIPT_WORKING_DRAFT.md)
+- Same manuscript with added/substantively rewritten passages in **bold**: [Markdown](manuscript/REVISED_MANUSCRIPT_CHANGES_BOLDED.md) · [editable Word document](manuscript/REVISED_MANUSCRIPT_CHANGES_BOLDED.docx)
 - Clean Colab launcher for the revised pipeline: [`Cross_lingual_REVISED.ipynb`](Cross_lingual_REVISED.ipynb)
 - Turkish manuscript change log: [`manuscript/REVISION_CHANGELOG_TR.md`](manuscript/REVISION_CHANGELOG_TR.md)
 - Linguistic error-annotation guide: [`docs/LINGUISTIC_ERROR_ANNOTATION_GUIDE_TR.md`](docs/LINGUISTIC_ERROR_ANNOTATION_GUIDE_TR.md)
