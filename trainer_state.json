@@ -1,0 +1,65 @@
+{
+  "best_global_step": 1518,
+  "best_metric": 0.9368981524979547,
+  "best_model_checkpoint": "/content/drive/MyDrive/SIGTURK/checkpoints/xlmr_tr_final_v3/checkpoint-1518",
+  "epoch": 1.0,
+  "eval_steps": 500,
+  "global_step": 1518,
+  "is_hyper_param_search": false,
+  "is_local_process_zero": true,
+  "is_world_process_zero": true,
+  "log_history": [
+    {
+      "epoch": 0.32938076416337286,
+      "grad_norm": 22.973587036132812,
+      "learning_rate": 1.7808519982433027e-05,
+      "loss": 0.40860809326171876,
+      "step": 500
+    },
+    {
+      "epoch": 0.6587615283267457,
+      "grad_norm": 16.032079696655273,
+      "learning_rate": 1.5612648221343876e-05,
+      "loss": 0.24098271179199218,
+      "step": 1000
+    },
+    {
+      "epoch": 0.9881422924901185,
+      "grad_norm": 21.581228256225586,
+      "learning_rate": 1.3416776460254721e-05,
+      "loss": 0.20322511291503906,
+      "step": 1500
+    },
+    {
+      "epoch": 1.0,
+      "eval_accuracy": 0.9436758893280632,
+      "eval_loss": 0.22775016725063324,
+      "eval_macro_f1": 0.9368981524979547,
+      "eval_runtime": 12.5756,
+      "eval_samples_per_second": 241.42,
+      "eval_steps_per_second": 30.217,
+      "step": 1518
+    }
+  ],
+  "logging_steps": 500,
+  "max_steps": 4554,
+  "num_input_tokens_seen": 0,
+  "num_train_epochs": 3,
+  "save_steps": 500,
+  "stateful_callbacks": {
+    "TrainerControl": {
+      "args": {
+        "should_epoch_stop": false,
+        "should_evaluate": false,
+        "should_log": false,
+        "should_save": true,
+        "should_training_stop": false
+      },
+      "attributes": {}
+    }
+  },
+  "total_flos": 1019621117283840.0,
+  "train_batch_size": 16,
+  "trial_name": null,
+  "trial_params": null
+}
