@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "columns": [
+    "example_id",
+    "language",
+    "text",
+    "label",
+    "split",
+    "source_dataset",
+    "source_row_id",
+    "text_sha256",
+    "pair_id"
+  ],
+  "total_rows": 34350,
+  "languages": [
+    "EN",
+    "FI",
+    "KO",
+    "TR"
+  ],
+  "sources": {
+    "ATC": {
+      "path": "ATC (2).xlsx",
+      "sha256": "fe82954cd51eecec8629937b13cf0d62f3c1dac6711dee6a4d66c7b52698ddd4"
+    },
+    "RTP-LX-FI": {
+      "path": "RTP_LX_FI (1).xlsx",
+      "sha256": "b66af2b6e55345885f591152ac1ad845cad6336bf86bf0ae74c3712855cf2f2a"
+    },
+    "BEEP": {
+      "repository": "kocohub/korean-hate-speech",
+      "expected_commit": "f8d05dce2b22007bb149e5139c0060c68ad8f94b",
+      "actual_commit": "f8d05dce2b22007bb149e5139c0060c68ad8f94b",
+      "pinned_commit_verified": true
+    },
+    "TweetEval-Offensive": {
+      "repository": "cardiffnlp/tweeteval",
+      "expected_commit": "4fbd22cd78421f05b1ecdb4fc5725bc7a7bd8f66",
+      "actual_commit": "4fbd22cd78421f05b1ecdb4fc5725bc7a7bd8f66",
+      "pinned_commit_verified": true
+    }
+  },
+  "summary": [
+    {
+      "source_dataset": "ATC",
+      "language": "TR",
+      "split": "dev",
+      "n": 1000,
+      "negative_0": 659,
+      "positive_1": 341,
+      "positive_rate": 0.341,
+      "duplicate_text_hash_rows": 0,
+      "median_characters": 53.0,
+      "mean_characters": 83.729,
+      "max_characters": 1064
+    },
+    {
+      "source_dataset": "ATC",
+      "language": "TR",
+      "split": "test",
+      "n": 1000,
+      "negative_0": 659,
+      "positive_1": 341,
+      "positive_rate": 0.341,
+      "duplicate_text_hash_rows": 0,
+      "median_characters": 54.0,
+      "mean_characters": 84.211,
+      "max_characters": 1402
+    },
+    {
+      "source_dataset": "ATC",
+      "language": "TR",
+      "split": "train",
+      "n": 8000,
+      "negative_0": 5275,
+      "positive_1": 2725,
+      "positive_rate": 0.340625,
+      "duplicate_text_hash_rows": 0,
+      "median_characters": 53.0,
+      "mean_characters": 83.137,
+      "max_characters": 1873
+    },
+    {
+      "source_dataset": "BEEP",
+      "language": "KO",
+      "split": "adaptation",
+      "n": 1000,
+      "negative_0": 441,
+      "positive_1": 559,
+      "positive_rate": 0.559,
+      "duplicate_text_hash_rows": 0,
+      "median_characters": 30.0,
+      "mean_characters": 37.986,
+      "max_characters": 135
+    },
+    {
+      "source_dataset": "BEEP",
+      "language": "KO",
+      "split": "dev",
+      "n": 500,
+      "negative_0": 221,
+      "positive_1": 279,
+      "positive_rate": 0.558,
+      "duplicate_text_hash_rows": 0,
+      "median_characters": 31.0,
+      "mean_characters": 38.836,
+      "max_characters": 128
+    },
+    {
+      "source_dataset": "BEEP",
+      "language": "KO",
+      "split": "test",
+      "n": 471,
+      "negative_0": 160,
+      "positive_1": 311,
+      "positive_rate": 0.6602972399150743,
+      "duplicate_text_hash_rows": 0,
+      "median_characters": 30.0,
+      "mean_characters": 38.84501061571125,
+      "max_characters": 137
+    },
+    {
+      "source_dataset": "BEEP",
+      "language": "KO",
+      "split": "train",
+      "n": 6396,
+      "negative_0": 2824,
+      "positive_1": 3572,
+      "positive_rate": 0.5584740462789243,
+      "duplicate_text_hash_rows": 0,
+      "median_characters": 31.0,
+      "mean_characters": 38.814258911819884,
+      "max_characters": 131
+    },
+    {
+      "source_dataset": "RTP-LX-FI",
+      "language": "FI",
+      "split": "dev",
+      "n": 99,
+      "negative_0": 64,
+      "positive_1": 35,
+      "positive_rate": 0.35353535353535354,
+      "duplicate_text_hash_rows": 0,
+      "median_characters": 1357.0,
+      "mean_characters": 1383.7474747474748,
+      "max_characters": 2038
+    },
+    {
+      "source_dataset": "RTP-LX-FI",
+      "language": "FI",
+      "split": "test",
+      "n": 440,
+      "negative_0": 283,
+      "positive_1": 157,
+      "positive_rate": 0.3568181818181818,
+      "duplicate_text_hash_rows": 0,
+      "median_characters": 1450.0,
+      "mean_characters": 1418.925,
+      "max_characters": 2052
+    },
+    {
+      "source_dataset": "RTP-LX-FI",
+      "language": "FI",
+      "split": "train",
+      "n": 560,
+      "negative_0": 360,
+      "positive_1": 200,
+      "positive_rate": 0.35714285714285715,
+      "duplicate_text_hash_rows": 0,
+      "median_characters": 1419.5,
+      "mean_characters": 1373.8196428571428,
+      "max_characters": 2095
+    },
+    {
+      "source_dataset": "RTP-LX-FI-PAIRED",
+      "language": "FI",
+      "split": "paired_test",
+      "n": 784,
+      "negative_0": 392,
+      "positive_1": 392,
+      "positive_rate": 0.5,
+      "duplicate_text_hash_rows": 0,
+      "median_characters": 270.0,
+      "mean_characters": 726.3112244897959,
+      "max_characters": 2019
+    },
+    {
+      "source_dataset": "TweetEval-Offensive",
+      "language": "EN",
+      "split": "dev",
+      "n": 1324,
+      "negative_0": 865,
+      "positive_1": 459,
+      "positive_rate": 0.3466767371601209,
+      "duplicate_text_hash_rows": 3,
+      "median_characters": 109.0,
+      "mean_characters": 132.82930513595167,
+      "max_characters": 461
+    },
+    {
+      "source_dataset": "TweetEval-Offensive",
+      "language": "EN",
+      "split": "test",
+      "n": 860,
+      "negative_0": 620,
+      "positive_1": 240,
+      "positive_rate": 0.27906976744186046,
+      "duplicate_text_hash_rows": 12,
+      "median_characters": 132.5,
+      "mean_characters": 144.73837209302326,
+      "max_characters": 315
+    },
+    {
+      "source_dataset": "TweetEval-Offensive",
+      "language": "EN",
+      "split": "train",
+      "n": 11916,
+      "negative_0": 7975,
+      "positive_1": 3941,
+      "positive_rate": 0.3307317891910037,
+      "duplicate_text_hash_rows": 48,
+      "median_characters": 102.0,
+      "mean_characters": 125.76258811681772,
+      "max_characters": 581
+    }
+  ],
+  "quality": [
+    {
+      "source_dataset": "ATC",
+      "duplicate_text_rows": 0,
+      "cross_split_duplicate_groups": 0,
+      "conflicting_label_groups": 0
+    },
+    {
+      "source_dataset": "BEEP",
+      "duplicate_text_rows": 0,
+      "cross_split_duplicate_groups": 0,
+      "conflicting_label_groups": 0
+    },
+    {
+      "source_dataset": "RTP-LX-FI",
+      "duplicate_text_rows": 0,
+      "cross_split_duplicate_groups": 0,
+      "conflicting_label_groups": 0
+    },
+    {
+      "source_dataset": "RTP-LX-FI-PAIRED",
+      "duplicate_text_rows": 0,
+      "cross_split_duplicate_groups": 0,
+      "conflicting_label_groups": 0
+    },
+    {
+      "source_dataset": "TweetEval-Offensive",
+      "duplicate_text_rows": 75,
+      "cross_split_duplicate_groups": 12,
+      "conflicting_label_groups": 10
+    }
+  ]
+}

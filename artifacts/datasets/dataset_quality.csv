@@ -1,0 +1,6 @@
+source_dataset,duplicate_text_rows,cross_split_duplicate_groups,conflicting_label_groups
+ATC,0,0,0
+BEEP,0,0,0
+RTP-LX-FI,0,0,0
+RTP-LX-FI-PAIRED,0,0,0
+TweetEval-Offensive,75,12,10

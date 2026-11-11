@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "data": "data/processed/standardized_with_morphology.parquet",
+  "output_root": "outputs/encoder",
+  "seeds": [42, 123, 456],
+  "defaults": {
+    "epochs": 3,
+    "learning_rate": 2e-5,
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.1,
+    "train_batch_size": 16,
+    "eval_batch_size": 32,
+    "gradient_accumulation_steps": 1
+  },
+  "blocks": [
+    {
+      "name": "primary_surface_models",
+      "models": [
+        {
+          "model_name": "bert-base-multilingual-cased",
+          "model_revision": "main"
+        },
+        {
+          "model_name": "xlm-roberta-base",
+          "model_revision": "main"
+        },
+        {
+          "model_name": "xlm-roberta-large",
+          "model_revision": "main",
+          "learning_rate": 1e-5,
+          "train_batch_size": 8,
+          "eval_batch_size": 16,
+          "gradient_accumulation_steps": 4
+        },
+        {
+          "model_name": "cis-lmu/glot500-base",
+          "model_revision": "main",
+          "train_batch_size": 8,
+          "eval_batch_size": 16,
+          "gradient_accumulation_steps": 2
+        }
+      ],
+      "views": ["surface"],
+      "max_lengths": [128],
+      "frozen_encoder": false
+    },
+    {
+      "name": "morphology_mechanism_xlmr_base",
+      "models": [
+        {
+          "model_name": "xlm-roberta-base",
+          "model_revision": "main"
+        }
+      ],
+      "views": ["lemma", "morph", "randomized_morph"],
+      "max_lengths": [128],
+      "frozen_encoder": false
+    },
+    {
+      "name": "finnish_length_sensitivity_xlmr_base",
+      "models": [
+        {
+          "model_name": "xlm-roberta-base",
+          "model_revision": "main"
+        }
+      ],
+      "views": ["surface"],
+      "max_lengths": [256, 512],
+      "frozen_encoder": false
+    },
+    {
+      "name": "true_frozen_encoder_ablation",
+      "models": [
+        {
+          "model_name": "xlm-roberta-base",
+          "model_revision": "main"
+        }
+      ],
+      "views": ["surface"],
+      "max_lengths": [128],
+      "frozen_encoder": true
+    }
+  ]
+}

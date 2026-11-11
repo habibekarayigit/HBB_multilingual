@@ -1,0 +1,14 @@
+{
+  "purpose": "lexical/orthographic diagnostic; not a multilingual encoder result",
+  "data_sha256": "766881f8d94e3449229cc3765f77e351b4b544730daa83aee35fae5f902d873e",
+  "seed": 42,
+  "max_length": 0,
+  "tokenizer": null,
+  "train_rows": 8000,
+  "models": [
+    "word_1_2",
+    "char_wb_3_5",
+    "prefix_2_5",
+    "suffix_2_5"
+  ]
+}

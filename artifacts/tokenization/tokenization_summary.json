@@ -1,0 +1,111 @@
+{
+  "max_length": 128,
+  "content_token_limit": 126,
+  "primary_test": {
+    "EN": {
+      "scope": "primary_test",
+      "label": "all",
+      "n": 860,
+      "negative_0": 620,
+      "positive_1": 240,
+      "mean_characters": 144.73837209302326,
+      "median_characters": 132.5,
+      "mean_words": 23.75232558139535,
+      "mean_subword_tokens": 41.437209302325584,
+      "median_subword_tokens": 38.0,
+      "p95_subword_tokens": 80.0,
+      "corpus_subword_fertility": 1.7445537768639545,
+      "truncated_n_at_128": 1,
+      "truncated_rate_at_128": 0.0011627906976744186,
+      "mean_token_retained_fraction_at_128": 0.9999305796598403,
+      "unique_observed_token_ids": 6566,
+      "latin_alpha_fraction": 0.9998017880801611,
+      "hangul_alpha_fraction": 0.00011475426938043127,
+      "other_alpha_fraction": 8.345765045849547e-05
+    },
+    "FI": {
+      "scope": "primary_test",
+      "label": "all",
+      "n": 440,
+      "negative_0": 283,
+      "positive_1": 157,
+      "mean_characters": 1418.925,
+      "median_characters": 1450.0,
+      "mean_words": 191.07954545454547,
+      "mean_subword_tokens": 368.91136363636366,
+      "median_subword_tokens": 379.5,
+      "p95_subword_tokens": 514.0,
+      "corpus_subword_fertility": 1.9306690454950937,
+      "truncated_n_at_128": 436,
+      "truncated_rate_at_128": 0.990909090909091,
+      "mean_token_retained_fraction_at_128": 0.390381262957486,
+      "unique_observed_token_ids": 8585,
+      "latin_alpha_fraction": 1.0,
+      "hangul_alpha_fraction": 0.0,
+      "other_alpha_fraction": 0.0
+    },
+    "KO": {
+      "scope": "primary_test",
+      "label": "all",
+      "n": 471,
+      "negative_0": 160,
+      "positive_1": 311,
+      "mean_characters": 38.84501061571125,
+      "median_characters": 30.0,
+      "mean_words": 8.518046709129512,
+      "mean_subword_tokens": 24.605095541401273,
+      "median_subword_tokens": 20.0,
+      "p95_subword_tokens": 58.0,
+      "corpus_subword_fertility": 2.8885842472582253,
+      "truncated_n_at_128": 0,
+      "truncated_rate_at_128": 0.0,
+      "mean_token_retained_fraction_at_128": 1.0,
+      "unique_observed_token_ids": 2148,
+      "latin_alpha_fraction": 0.004803143875991558,
+      "hangul_alpha_fraction": 0.9951240812167964,
+      "other_alpha_fraction": 7.27749072119933e-05
+    },
+    "TR": {
+      "scope": "primary_test",
+      "label": "all",
+      "n": 1000,
+      "negative_0": 659,
+      "positive_1": 341,
+      "mean_characters": 84.211,
+      "median_characters": 54.0,
+      "mean_words": 11.573,
+      "mean_subword_tokens": 25.591,
+      "median_subword_tokens": 18.0,
+      "p95_subword_tokens": 70.0,
+      "corpus_subword_fertility": 2.211267605633803,
+      "truncated_n_at_128": 14,
+      "truncated_rate_at_128": 0.014,
+      "mean_token_retained_fraction_at_128": 0.9965248680059838,
+      "unique_observed_token_ids": 5340,
+      "latin_alpha_fraction": 1.0,
+      "hangul_alpha_fraction": 0.0,
+      "other_alpha_fraction": 0.0
+    }
+  },
+  "tr_to_target_overlap": {
+    "EN": {
+      "source": "TR_train",
+      "type_jaccard": 0.13060405134132247,
+      "target_type_coverage_by_source": 0.32698751142247945,
+      "target_token_occurrence_coverage_by_source": 0.6482489617240992
+    },
+    "FI": {
+      "source": "TR_train",
+      "type_jaccard": 0.12953623506194495,
+      "target_type_coverage_by_source": 0.27524752475247527,
+      "target_token_occurrence_coverage_by_source": 0.4956967983193795
+    },
+    "KO": {
+      "source": "TR_train",
+      "type_jaccard": 0.0055358410220014195,
+      "target_type_coverage_by_source": 0.036312849162011177,
+      "target_token_occurrence_coverage_by_source": 0.11105358529640176
+    }
+  },
+  "interpretation_warning": "Subword fertility reflects tokenizer behavior and is not a direct measure of morphological complexity."
+}

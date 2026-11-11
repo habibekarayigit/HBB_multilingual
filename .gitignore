@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ipynb_checkpoints/
+artifacts/error_annotation/
+data/raw/
+data/processed/
+outputs/
+checkpoints/
