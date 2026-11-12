@@ -27,6 +27,7 @@ METRICS = [
 
 GROUP_COLUMNS = [
     "model",
+    "model_revision",
     "view",
     "max_length",
     "frozen_encoder",
@@ -67,7 +68,20 @@ def aggregate(
     missing = required.difference(frame.columns)
     if missing:
         raise ValueError(f"Metrics files are missing columns: {sorted(missing)}")
-    valid = frame.loc[frame["scientifically_valid"].astype(bool)].copy()
+    validity = frame["scientifically_valid"]
+    if not pd.api.types.is_bool_dtype(validity):
+        validity = validity.astype(str).str.lower().map(
+            {"true": True, "false": False, "1": True, "0": False}
+        )
+    if validity.isna().any():
+        raise ValueError("Could not parse scientifically_valid as boolean")
+    valid = frame.loc[validity].copy()
+    if not pd.api.types.is_bool_dtype(valid["frozen_encoder"]):
+        valid["frozen_encoder"] = valid["frozen_encoder"].astype(str).str.lower().map(
+            {"true": True, "false": False, "1": True, "0": False}
+        )
+    if valid["frozen_encoder"].isna().any():
+        raise ValueError("Could not parse frozen_encoder as boolean")
     if valid.empty:
         raise ValueError("No scientifically valid rows found")
 
@@ -102,8 +116,8 @@ def aggregate(
 
 def markdown_table(summary: pd.DataFrame) -> str:
     lines = [
-        "| Model | View | L | Frozen | Language | N seeds | Macro-F1 mean±SD | Accuracy mean±SD |",
-        "|---|---|---:|:---:|---|---:|---:|---:|",
+        "| Model | Revision | View | L | Frozen | Language | N seeds | Macro-F1 mean±SD | Accuracy mean±SD |",
+        "|---|---|---|---:|:---:|---|---:|---:|---:|",
     ]
     for _, row in summary.iterrows():
         macro_std = row["macro_f1_std"]
@@ -111,8 +125,9 @@ def markdown_table(summary: pd.DataFrame) -> str:
         macro = f"{row['macro_f1_mean']:.3f}±{macro_std:.3f}" if pd.notna(macro_std) else f"{row['macro_f1_mean']:.3f}"
         accuracy = f"{row['accuracy_mean']:.3f}±{accuracy_std:.3f}" if pd.notna(accuracy_std) else f"{row['accuracy_mean']:.3f}"
         lines.append(
-            f"| {row['model']} | {row['view']} | {int(row['max_length'])} | "
-            f"{'yes' if row['frozen_encoder'] else 'no'} | {row['language']} | "
+            f"| {row['model']} | {str(row['model_revision'])[:12]} | {row['view']} | "
+            f"{int(row['max_length'])} | {'yes' if row['frozen_encoder'] else 'no'} | "
+            f"{row['language']} | "
             f"{int(row['seed_count'])} | {macro} | {accuracy} |"
         )
     return "\n".join(lines) + "\n"
@@ -139,6 +154,9 @@ def main() -> None:
     args.output_dir.mkdir(parents=True, exist_ok=True)
     summary.to_csv(args.output_dir / "encoder_summary.csv", index=False)
     completeness.to_csv(args.output_dir / "seed_completeness.csv", index=False)
+    with pd.ExcelWriter(args.output_dir / "encoder_results.xlsx") as writer:
+        summary.to_excel(writer, sheet_name="summary", index=False)
+        completeness.to_excel(writer, sheet_name="seed_completeness", index=False)
     (args.output_dir / "ENCODER_RESULTS.md").write_text(
         "# Encoder results\n\n" + markdown_table(summary), encoding="utf-8"
     )

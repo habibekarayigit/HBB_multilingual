@@ -14,7 +14,8 @@ This repository contains the local ATC and Finnish RTP-LX workbooks, the origina
 - Lexical/orthographic diagnostic results: [`artifacts/linear_diagnostics/REPORT.md`](artifacts/linear_diagnostics/REPORT.md)
 - Audited revised manuscript working draft: [`manuscript/REVISED_MANUSCRIPT_WORKING_DRAFT.md`](manuscript/REVISED_MANUSCRIPT_WORKING_DRAFT.md)
 - Same manuscript with added/substantively rewritten passages in **bold**: [Markdown](manuscript/REVISED_MANUSCRIPT_CHANGES_BOLDED.md) · [editable Word document](manuscript/REVISED_MANUSCRIPT_CHANGES_BOLDED.docx)
-- Clean Colab launcher for the revised pipeline: [`Cross_lingual_REVISED.ipynb`](Cross_lingual_REVISED.ipynb)
+- Reviewer-auditable end-to-end Colab pipeline: [`Cross_lingual_REVISED.ipynb`](Cross_lingual_REVISED.ipynb)
+- Turkish guide to the confirmatory Colab workflow: [`docs/COLAB_CONFIRMATORY_PIPELINE_TR.md`](docs/COLAB_CONFIRMATORY_PIPELINE_TR.md)
 - Turkish manuscript change log: [`manuscript/REVISION_CHANGELOG_TR.md`](manuscript/REVISION_CHANGELOG_TR.md)
 - Linguistic error-annotation guide: [`docs/LINGUISTIC_ERROR_ANNOTATION_GUIDE_TR.md`](docs/LINGUISTIC_ERROR_ANNOTATION_GUIDE_TR.md)
 
@@ -73,7 +74,14 @@ After standardization, install the morphology dependencies and build surface-ali
   --download --use-gpu
 ```
 
-The output includes `lemma_text`, `morph_text`, and a frequency-matched `randomized_morph_text` placebo for controlled ablations. Analyzer quality still needs manual checking on social-media samples in every language.
+The output includes `lemma_text`, `morph_text`, and a frequency-matched `randomized_morph_text` placebo for controlled ablations. Analyzer quality must be checked on a fixed language-balanced sample before the morphology block is interpreted:
+
+```bash
+.venv/bin/python scripts/sample_morphology_qc.py \
+  data/processed/standardized_with_morphology.parquet \
+  --per-language 100 \
+  --seed 42
+```
 
 ## Run the clean encoder pipeline
 
@@ -84,38 +92,52 @@ Install the experiment dependencies and validate the full train/evaluate/output 
 .venv/bin/python scripts/run_encoder_experiment.py --smoke-test --epochs 1
 ```
 
-Smoke metrics are marked `scientifically_valid=false`. Publication runs require CUDA and pretrained weights. Inspect the 30-run plan before execution:
+Smoke metrics are marked `scientifically_valid=false`. Publication runs require CUDA and pretrained weights. The matrix contains 12 primary model/seed runs, 9 morphology-view runs, 6 Finnish length-sensitivity runs, and 3 truly frozen-encoder runs. Each trained run evaluates every available target language, so languages are not incorrectly counted as separate training jobs. Resolve model tags to immutable Hugging Face commits, validate every input, and inspect the exact 30-run plan before execution:
 
 ```bash
-.venv/bin/python scripts/run_experiment_matrix.py
-# On an A100 runtime, after pinning immutable model revisions:
-.venv/bin/python scripts/run_experiment_matrix.py --execute
+.venv/bin/python scripts/pin_model_revisions.py
+.venv/bin/python scripts/validate_confirmatory_setup.py \
+  --config configs/experiment_matrix.pinned.json \
+  --require-cuda
+.venv/bin/python scripts/run_experiment_matrix.py \
+  --config configs/experiment_matrix.pinned.json
+.venv/bin/python scripts/run_experiment_matrix.py \
+  --config configs/experiment_matrix.pinned.json \
+  --execute
 ```
 
-Each real run writes `run_config.json`, training history, aggregate metrics, and per-example predictions. The corrected frozen baseline logs trainable/frozen parameter counts and trains only the classification head. After all seeds finish, aggregate with a strict completeness check:
+Mutable revisions cause a hard failure during real execution. Surface blocks read `standardized_all.csv`; only the morphology mechanism block requires `standardized_with_morphology.parquet`. Every real run writes `run_config.json`, training history, aggregate metrics, and per-example predictions including the original text for later blinded annotation. The corrected frozen baseline logs trainable/frozen parameter counts and trains only the classification head.
+
+After every seed finishes, aggregate and run the pre-specified hierarchical paired bootstrap. Both commands reject incomplete conditions:
 
 ```bash
 .venv/bin/python scripts/aggregate_encoder_results.py
+.venv/bin/python scripts/bootstrap_encoder_comparisons.py
+.venv/bin/python scripts/make_encoder_figures.py
 ```
 
 ## Prepare a blinded linguistic error sample
 
-After a model run, export one row per example with:
-
-```text
-example_id,language,text,label,prediction,model,probability_1
-```
-
-Then run:
+Build a stable three-seed probability ensemble and draw a pre-specified error sample:
 
 ```bash
-.venv/bin/python scripts/sample_linguistic_errors.py predictions.csv \
-  --model xlm-roberta-base \
-  --per-cell 25 \
+.venv/bin/python scripts/ensemble_encoder_predictions.py
+.venv/bin/python scripts/sample_linguistic_errors.py \
+  artifacts/error_annotation/xlmr_base_surface_ensemble_predictions.csv \
+  --outcomes FP,FN \
+  --per-cell 100 \
   --seed 42
 ```
 
-Annotators should receive only `annotation_blind.csv`; keep `annotation_key.csv` hidden until coding is complete.
+Annotators should receive independent copies of only `annotation_blind.csv`; keep `annotation_key.csv` hidden until coding is complete. After both copies are returned, calculate agreement before adjudication, then summarize the adjudicated sheet:
+
+```bash
+.venv/bin/python scripts/calculate_annotation_agreement.py \
+  annotation_annotator_A.csv annotation_annotator_B.csv \
+  --labels annotator_A,annotator_B
+.venv/bin/python scripts/summarize_error_annotations.py \
+  annotation_adjudicated.csv annotation_key.csv
+```
 
 ## Tests
 

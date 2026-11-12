@@ -23,7 +23,9 @@ import math
 import os
 import platform
 import random
+import re
 import shutil
+import subprocess
 import sys
 import time
 from dataclasses import asdict, dataclass
@@ -68,6 +70,7 @@ VIEW_COLUMNS = {
 @dataclass(frozen=True)
 class RunConfig:
     model_name: str
+    model_revision: str
     view: str
     seed: int
     max_length: int
@@ -77,6 +80,7 @@ class RunConfig:
     train_batch_size: int
     eval_batch_size: int
     gradient_accumulation_steps: int
+    effective_train_batch_size: int
     warmup_ratio: float
     frozen_encoder: bool
     precision: str
@@ -89,6 +93,26 @@ def sha256_file(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def git_head() -> str | None:
+    try:
+        return subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], text=True, stderr=subprocess.DEVNULL
+        ).strip()
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        return None
+
+
+def provenance_hashes(data_path: Path) -> dict[str, str]:
+    candidates = [
+        Path("artifacts/audit/atc_seed42_manifest.csv"),
+        Path("artifacts/audit/finnish_seed42_manifest.csv"),
+        Path("artifacts/datasets/dataset_registry.json"),
+        Path("artifacts/datasets/standardized_manifest.csv"),
+        data_path.with_suffix(data_path.suffix + ".metadata.json"),
+    ]
+    return {str(path): sha256_file(path) for path in candidates if path.exists()}
 
 
 def read_standardized(path: Path) -> pd.DataFrame:
@@ -125,6 +149,7 @@ class EncodedTextDataset(Dataset):
             [
                 "example_id",
                 "language",
+                "text",
                 "label",
                 "split",
                 "source_dataset",
@@ -500,6 +525,7 @@ def evaluate_and_write(
             {
                 "run_id": run_id,
                 "model": args.model_name,
+                "model_revision": args.model_revision,
                 "view": args.view,
                 "seed": args.seed,
                 "max_length": args.max_length,
@@ -518,6 +544,7 @@ def evaluate_and_write(
         output["probability_1"] = probabilities
         output["run_id"] = run_id
         output["model"] = args.model_name
+        output["model_revision"] = args.model_revision
         output["view"] = args.view
         output["seed"] = args.seed
         output["max_length"] = args.max_length
@@ -536,11 +563,24 @@ def slug(value: str) -> str:
     return "".join(char if char.isalnum() else "-" for char in value).strip("-")
 
 
+def revision_slug(value: str) -> str:
+    return slug(value)[:12] or "unknown"
+
+
+def is_immutable_revision(value: str) -> bool:
+    return bool(re.fullmatch(r"[0-9a-fA-F]{40,64}", value))
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data", type=Path, default=Path("data/processed/standardized_all.csv"))
     parser.add_argument("--model-name", default="xlm-roberta-base")
     parser.add_argument("--model-revision", default="main")
+    parser.add_argument(
+        "--allow-mutable-revision",
+        action="store_true",
+        help="Permit tags such as main. Never use this for final paper runs.",
+    )
     parser.add_argument("--view", choices=sorted(VIEW_COLUMNS), default="surface")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--max-length", type=int, default=128)
@@ -569,6 +609,15 @@ def main() -> None:
         raise ValueError("--max-length must be at least 8")
     if args.gradient_accumulation_steps < 1:
         raise ValueError("--gradient-accumulation-steps must be positive")
+    if (
+        not args.smoke_test
+        and not args.allow_mutable_revision
+        and not is_immutable_revision(args.model_revision)
+    ):
+        raise ValueError(
+            "Final experiments require an immutable 40–64 character model commit "
+            "hash. Resolve revisions first with scripts/pin_model_revisions.py."
+        )
 
     set_seed(args.seed)
     frame = read_standardized(args.data)
@@ -612,7 +661,8 @@ def main() -> None:
     model.to(device)
 
     run_id = (
-        f"{slug(effective_model_name)}__{args.view}__seed{args.seed}__L{args.max_length}"
+        f"{slug(effective_model_name)}__rev{revision_slug(args.model_revision)}"
+        f"__{args.view}__seed{args.seed}__L{args.max_length}"
         + ("__frozen" if args.frozen_encoder else "__full")
         + ("__SMOKE" if args.smoke_test else "")
     )
@@ -622,6 +672,7 @@ def main() -> None:
 
     config = RunConfig(
         model_name=effective_model_name,
+        model_revision=args.model_revision,
         view=args.view,
         seed=args.seed,
         max_length=args.max_length,
@@ -631,6 +682,9 @@ def main() -> None:
         train_batch_size=args.train_batch_size,
         eval_batch_size=args.eval_batch_size,
         gradient_accumulation_steps=args.gradient_accumulation_steps,
+        effective_train_batch_size=(
+            args.train_batch_size * args.gradient_accumulation_steps
+        ),
         warmup_ratio=args.warmup_ratio,
         frozen_encoder=args.frozen_encoder,
         precision=effective_precision,
@@ -643,6 +697,9 @@ def main() -> None:
         "model_revision": args.model_revision,
         "data_path": str(args.data),
         "data_sha256": sha256_file(args.data),
+        "provenance_sha256": provenance_hashes(args.data),
+        "code_git_commit": git_head(),
+        "runner_sha256": sha256_file(Path(__file__)),
         "train_rows": int(len(train_frame)),
         "dev_rows": int(len(dev_frame)),
         "parameter_counts": counts,

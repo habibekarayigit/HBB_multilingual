@@ -4,6 +4,7 @@ __pycache__/
 .pytest_cache/
 .ipynb_checkpoints/
 artifacts/error_annotation/
+artifacts/morphology_qc/
 data/raw/
 data/processed/
 outputs/

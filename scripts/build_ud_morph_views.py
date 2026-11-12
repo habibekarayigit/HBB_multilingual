@@ -208,9 +208,29 @@ def build_views(
         for start in range(0, len(texts), batch_documents):
             documents = pipeline.bulk_process(texts[start : start + batch_documents])
             analyses.extend(document_to_views(document) for document in documents)
-        randomized = make_randomized_morph_texts(
-            analyses, seed=seed + sum(ord(char) for char in code)
+        # Randomize only within dataset/split partitions. This preserves each
+        # partition's bundle inventory without moving analyzer information
+        # across train/dev/test boundaries or between primary/diagnostic data.
+        grouping_columns = [
+            column for column in ("source_dataset", "split") if column in language_frame.columns
+        ]
+        randomized = [""] * len(analyses)
+        indexed_frame = language_frame.reset_index(drop=True)
+        groups = (
+            indexed_frame.groupby(grouping_columns, sort=True).indices
+            if grouping_columns
+            else {("all",): list(range(len(indexed_frame)))}
         )
+        for group_key, indices in groups.items():
+            index_list = list(map(int, indices))
+            subset = [analyses[index] for index in index_list]
+            key_text = "|".join(map(str, group_key if isinstance(group_key, tuple) else (group_key,)))
+            group_seed = seed + sum(ord(char) for char in f"{code}|{key_text}")
+            subset_randomized = make_randomized_morph_texts(subset, seed=group_seed)
+            for index, randomized_text in zip(index_list, subset_randomized):
+                randomized[index] = randomized_text
+        if any(text == "" and analyses[index]["_lemmas"] for index, text in enumerate(randomized)):
+            raise AssertionError("Randomized morphology view was not populated for every row")
 
         public_analyses = []
         for analysis, randomized_text in zip(analyses, randomized):
@@ -264,6 +284,7 @@ def main() -> None:
         "use_gpu": bool(args.use_gpu),
         "batch_documents": int(args.batch_documents),
         "language_map": LANGUAGE_MAP,
+        "randomization_scope": "within language/source_dataset/split partitions",
         "columns": output.columns.tolist(),
     }
     metadata_path = args.output.with_suffix(args.output.suffix + ".metadata.json")

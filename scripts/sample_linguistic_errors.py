@@ -54,7 +54,11 @@ def outcome_name(label: int, prediction: int) -> str:
 
 
 def create_sample(
-    frame: pd.DataFrame, *, per_cell: int, seed: int
+    frame: pd.DataFrame,
+    *,
+    per_cell: int,
+    seed: int,
+    outcomes: set[str] | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     required = {"example_id", "language", "text", "label", "prediction"}
     missing = required.difference(frame.columns)
@@ -73,6 +77,11 @@ def create_sample(
         outcome_name(label, prediction)
         for label, prediction in zip(work["label"], work["prediction"])
     ]
+    if outcomes is not None:
+        invalid = outcomes.difference({"TN", "FP", "FN", "TP"})
+        if invalid:
+            raise ValueError(f"Unknown outcomes: {sorted(invalid)}")
+        work = work.loc[work["outcome"].isin(outcomes)].copy()
 
     sampled_parts: list[pd.DataFrame] = []
     availability: list[dict[str, object]] = []
@@ -129,6 +138,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--per-cell", type=int, default=25)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument(
+        "--outcomes",
+        default="TN,FP,FN,TP",
+        help="Comma-separated outcomes to sample, for example FP,FN.",
+    )
+    parser.add_argument(
         "--model",
         help="If the input contains several models, retain only this model name.",
     )
@@ -143,8 +157,9 @@ def main() -> None:
             raise ValueError("--model was supplied but the input has no model column")
         frame = frame.loc[frame["model"].astype(str).eq(args.model)].copy()
     args.output_dir.mkdir(parents=True, exist_ok=True)
+    outcomes = {value.strip().upper() for value in args.outcomes.split(",") if value.strip()}
     blind, key, availability = create_sample(
-        frame, per_cell=args.per_cell, seed=args.seed
+        frame, per_cell=args.per_cell, seed=args.seed, outcomes=outcomes
     )
     blind.to_csv(args.output_dir / "annotation_blind.csv", index=False)
     key.to_csv(args.output_dir / "annotation_key.csv", index=False)

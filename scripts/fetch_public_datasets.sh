@@ -27,13 +27,13 @@ clone_sparse \
   https://github.com/kocohub/korean-hate-speech.git \
   "$KO_DIR" \
   "$KO_COMMIT" \
-  labeled README.md LICENSE.md
+  labeled
 
 clone_sparse \
   https://github.com/cardiffnlp/tweeteval.git \
   "$EN_DIR" \
   "$EN_COMMIT" \
-  datasets/offensive README.md
+  datasets/offensive
 
 printf 'Korean commit:  %s\n' "$(git -C "$KO_DIR" rev-parse HEAD)"
 printf 'TweetEval commit: %s\n' "$(git -C "$EN_DIR" rev-parse HEAD)"

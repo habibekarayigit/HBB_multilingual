@@ -1,13 +1,13 @@
 [
   {
     "index": 1,
-    "run_id": "bert-base-multilingual-cased__surface__seed42__L128__full",
+    "run_id": "bert-base-multilingual-cased__revmain__surface__seed42__L128__full",
     "block": "primary_surface_models",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "bert-base-multilingual-cased",
       "--model-revision",
@@ -35,17 +35,24 @@
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/bert-base-multilingual-cased__surface__seed42__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/bert-base-multilingual-cased__revmain__surface__seed42__L128__full",
+    "metrics_path": "outputs/encoder/bert-base-multilingual-cased__revmain__surface__seed42__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/bert-base-multilingual-cased__revmain__surface__seed42__L128__full/run_config.json",
+      "outputs/encoder/bert-base-multilingual-cased__revmain__surface__seed42__L128__full/history.json",
+      "outputs/encoder/bert-base-multilingual-cased__revmain__surface__seed42__L128__full/metrics.csv",
+      "outputs/encoder/bert-base-multilingual-cased__revmain__surface__seed42__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 2,
-    "run_id": "bert-base-multilingual-cased__surface__seed123__L128__full",
+    "run_id": "bert-base-multilingual-cased__revmain__surface__seed123__L128__full",
     "block": "primary_surface_models",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "bert-base-multilingual-cased",
       "--model-revision",
@@ -73,17 +80,24 @@
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/bert-base-multilingual-cased__surface__seed123__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/bert-base-multilingual-cased__revmain__surface__seed123__L128__full",
+    "metrics_path": "outputs/encoder/bert-base-multilingual-cased__revmain__surface__seed123__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/bert-base-multilingual-cased__revmain__surface__seed123__L128__full/run_config.json",
+      "outputs/encoder/bert-base-multilingual-cased__revmain__surface__seed123__L128__full/history.json",
+      "outputs/encoder/bert-base-multilingual-cased__revmain__surface__seed123__L128__full/metrics.csv",
+      "outputs/encoder/bert-base-multilingual-cased__revmain__surface__seed123__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 3,
-    "run_id": "bert-base-multilingual-cased__surface__seed456__L128__full",
+    "run_id": "bert-base-multilingual-cased__revmain__surface__seed456__L128__full",
     "block": "primary_surface_models",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "bert-base-multilingual-cased",
       "--model-revision",
@@ -111,17 +125,24 @@
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/bert-base-multilingual-cased__surface__seed456__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/bert-base-multilingual-cased__revmain__surface__seed456__L128__full",
+    "metrics_path": "outputs/encoder/bert-base-multilingual-cased__revmain__surface__seed456__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/bert-base-multilingual-cased__revmain__surface__seed456__L128__full/run_config.json",
+      "outputs/encoder/bert-base-multilingual-cased__revmain__surface__seed456__L128__full/history.json",
+      "outputs/encoder/bert-base-multilingual-cased__revmain__surface__seed456__L128__full/metrics.csv",
+      "outputs/encoder/bert-base-multilingual-cased__revmain__surface__seed456__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 4,
-    "run_id": "xlm-roberta-base__surface__seed42__L128__full",
+    "run_id": "xlm-roberta-base__revmain__surface__seed42__L128__full",
     "block": "primary_surface_models",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "xlm-roberta-base",
       "--model-revision",
@@ -149,17 +170,24 @@
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__surface__seed42__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L128__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L128__full/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L128__full/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L128__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 5,
-    "run_id": "xlm-roberta-base__surface__seed123__L128__full",
+    "run_id": "xlm-roberta-base__revmain__surface__seed123__L128__full",
     "block": "primary_surface_models",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "xlm-roberta-base",
       "--model-revision",
@@ -187,17 +215,24 @@
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__surface__seed123__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L128__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L128__full/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L128__full/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L128__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 6,
-    "run_id": "xlm-roberta-base__surface__seed456__L128__full",
+    "run_id": "xlm-roberta-base__revmain__surface__seed456__L128__full",
     "block": "primary_surface_models",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "xlm-roberta-base",
       "--model-revision",
@@ -225,17 +260,24 @@
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__surface__seed456__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L128__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L128__full/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L128__full/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L128__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 7,
-    "run_id": "xlm-roberta-large__surface__seed42__L128__full",
+    "run_id": "xlm-roberta-large__revmain__surface__seed42__L128__full",
     "block": "primary_surface_models",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "xlm-roberta-large",
       "--model-revision",
@@ -259,21 +301,28 @@
       "--eval-batch-size",
       "16",
       "--gradient-accumulation-steps",
-      "4",
+      "2",
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-large__surface__seed42__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-large__revmain__surface__seed42__L128__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-large__revmain__surface__seed42__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-large__revmain__surface__seed42__L128__full/run_config.json",
+      "outputs/encoder/xlm-roberta-large__revmain__surface__seed42__L128__full/history.json",
+      "outputs/encoder/xlm-roberta-large__revmain__surface__seed42__L128__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-large__revmain__surface__seed42__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 8,
-    "run_id": "xlm-roberta-large__surface__seed123__L128__full",
+    "run_id": "xlm-roberta-large__revmain__surface__seed123__L128__full",
     "block": "primary_surface_models",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "xlm-roberta-large",
       "--model-revision",
@@ -297,21 +346,28 @@
       "--eval-batch-size",
       "16",
       "--gradient-accumulation-steps",
-      "4",
+      "2",
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-large__surface__seed123__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-large__revmain__surface__seed123__L128__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-large__revmain__surface__seed123__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-large__revmain__surface__seed123__L128__full/run_config.json",
+      "outputs/encoder/xlm-roberta-large__revmain__surface__seed123__L128__full/history.json",
+      "outputs/encoder/xlm-roberta-large__revmain__surface__seed123__L128__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-large__revmain__surface__seed123__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 9,
-    "run_id": "xlm-roberta-large__surface__seed456__L128__full",
+    "run_id": "xlm-roberta-large__revmain__surface__seed456__L128__full",
     "block": "primary_surface_models",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "xlm-roberta-large",
       "--model-revision",
@@ -335,21 +391,28 @@
       "--eval-batch-size",
       "16",
       "--gradient-accumulation-steps",
-      "4",
+      "2",
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-large__surface__seed456__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-large__revmain__surface__seed456__L128__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-large__revmain__surface__seed456__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-large__revmain__surface__seed456__L128__full/run_config.json",
+      "outputs/encoder/xlm-roberta-large__revmain__surface__seed456__L128__full/history.json",
+      "outputs/encoder/xlm-roberta-large__revmain__surface__seed456__L128__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-large__revmain__surface__seed456__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 10,
-    "run_id": "cis-lmu-glot500-base__surface__seed42__L128__full",
+    "run_id": "cis-lmu-glot500-base__revmain__surface__seed42__L128__full",
     "block": "primary_surface_models",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "cis-lmu/glot500-base",
       "--model-revision",
@@ -377,17 +440,24 @@
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/cis-lmu-glot500-base__surface__seed42__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/cis-lmu-glot500-base__revmain__surface__seed42__L128__full",
+    "metrics_path": "outputs/encoder/cis-lmu-glot500-base__revmain__surface__seed42__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/cis-lmu-glot500-base__revmain__surface__seed42__L128__full/run_config.json",
+      "outputs/encoder/cis-lmu-glot500-base__revmain__surface__seed42__L128__full/history.json",
+      "outputs/encoder/cis-lmu-glot500-base__revmain__surface__seed42__L128__full/metrics.csv",
+      "outputs/encoder/cis-lmu-glot500-base__revmain__surface__seed42__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 11,
-    "run_id": "cis-lmu-glot500-base__surface__seed123__L128__full",
+    "run_id": "cis-lmu-glot500-base__revmain__surface__seed123__L128__full",
     "block": "primary_surface_models",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "cis-lmu/glot500-base",
       "--model-revision",
@@ -415,17 +485,24 @@
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/cis-lmu-glot500-base__surface__seed123__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/cis-lmu-glot500-base__revmain__surface__seed123__L128__full",
+    "metrics_path": "outputs/encoder/cis-lmu-glot500-base__revmain__surface__seed123__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/cis-lmu-glot500-base__revmain__surface__seed123__L128__full/run_config.json",
+      "outputs/encoder/cis-lmu-glot500-base__revmain__surface__seed123__L128__full/history.json",
+      "outputs/encoder/cis-lmu-glot500-base__revmain__surface__seed123__L128__full/metrics.csv",
+      "outputs/encoder/cis-lmu-glot500-base__revmain__surface__seed123__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 12,
-    "run_id": "cis-lmu-glot500-base__surface__seed456__L128__full",
+    "run_id": "cis-lmu-glot500-base__revmain__surface__seed456__L128__full",
     "block": "primary_surface_models",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "cis-lmu/glot500-base",
       "--model-revision",
@@ -453,14 +530,21 @@
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/cis-lmu-glot500-base__surface__seed456__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/cis-lmu-glot500-base__revmain__surface__seed456__L128__full",
+    "metrics_path": "outputs/encoder/cis-lmu-glot500-base__revmain__surface__seed456__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/cis-lmu-glot500-base__revmain__surface__seed456__L128__full/run_config.json",
+      "outputs/encoder/cis-lmu-glot500-base__revmain__surface__seed456__L128__full/history.json",
+      "outputs/encoder/cis-lmu-glot500-base__revmain__surface__seed456__L128__full/metrics.csv",
+      "outputs/encoder/cis-lmu-glot500-base__revmain__surface__seed456__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 13,
-    "run_id": "xlm-roberta-base__lemma__seed42__L128__full",
+    "run_id": "xlm-roberta-base__revmain__lemma__seed42__L128__full",
     "block": "morphology_mechanism_xlmr_base",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
       "data/processed/standardized_with_morphology.parquet",
@@ -491,14 +575,21 @@
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__lemma__seed42__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__lemma__seed42__L128__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__lemma__seed42__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__lemma__seed42__L128__full/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__lemma__seed42__L128__full/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__lemma__seed42__L128__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__lemma__seed42__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 14,
-    "run_id": "xlm-roberta-base__lemma__seed123__L128__full",
+    "run_id": "xlm-roberta-base__revmain__lemma__seed123__L128__full",
     "block": "morphology_mechanism_xlmr_base",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
       "data/processed/standardized_with_morphology.parquet",
@@ -529,14 +620,21 @@
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__lemma__seed123__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__lemma__seed123__L128__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__lemma__seed123__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__lemma__seed123__L128__full/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__lemma__seed123__L128__full/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__lemma__seed123__L128__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__lemma__seed123__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 15,
-    "run_id": "xlm-roberta-base__lemma__seed456__L128__full",
+    "run_id": "xlm-roberta-base__revmain__lemma__seed456__L128__full",
     "block": "morphology_mechanism_xlmr_base",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
       "data/processed/standardized_with_morphology.parquet",
@@ -567,14 +665,21 @@
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__lemma__seed456__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__lemma__seed456__L128__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__lemma__seed456__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__lemma__seed456__L128__full/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__lemma__seed456__L128__full/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__lemma__seed456__L128__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__lemma__seed456__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 16,
-    "run_id": "xlm-roberta-base__morph__seed42__L128__full",
+    "run_id": "xlm-roberta-base__revmain__morph__seed42__L128__full",
     "block": "morphology_mechanism_xlmr_base",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
       "data/processed/standardized_with_morphology.parquet",
@@ -605,14 +710,21 @@
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__morph__seed42__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__morph__seed42__L128__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__morph__seed42__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__morph__seed42__L128__full/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__morph__seed42__L128__full/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__morph__seed42__L128__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__morph__seed42__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 17,
-    "run_id": "xlm-roberta-base__morph__seed123__L128__full",
+    "run_id": "xlm-roberta-base__revmain__morph__seed123__L128__full",
     "block": "morphology_mechanism_xlmr_base",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
       "data/processed/standardized_with_morphology.parquet",
@@ -643,14 +755,21 @@
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__morph__seed123__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__morph__seed123__L128__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__morph__seed123__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__morph__seed123__L128__full/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__morph__seed123__L128__full/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__morph__seed123__L128__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__morph__seed123__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 18,
-    "run_id": "xlm-roberta-base__morph__seed456__L128__full",
+    "run_id": "xlm-roberta-base__revmain__morph__seed456__L128__full",
     "block": "morphology_mechanism_xlmr_base",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
       "data/processed/standardized_with_morphology.parquet",
@@ -681,14 +800,21 @@
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__morph__seed456__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__morph__seed456__L128__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__morph__seed456__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__morph__seed456__L128__full/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__morph__seed456__L128__full/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__morph__seed456__L128__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__morph__seed456__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 19,
-    "run_id": "xlm-roberta-base__randomized_morph__seed42__L128__full",
+    "run_id": "xlm-roberta-base__revmain__randomized_morph__seed42__L128__full",
     "block": "morphology_mechanism_xlmr_base",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
       "data/processed/standardized_with_morphology.parquet",
@@ -719,14 +845,21 @@
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__randomized_morph__seed42__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__randomized_morph__seed42__L128__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__randomized_morph__seed42__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__randomized_morph__seed42__L128__full/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__randomized_morph__seed42__L128__full/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__randomized_morph__seed42__L128__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__randomized_morph__seed42__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 20,
-    "run_id": "xlm-roberta-base__randomized_morph__seed123__L128__full",
+    "run_id": "xlm-roberta-base__revmain__randomized_morph__seed123__L128__full",
     "block": "morphology_mechanism_xlmr_base",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
       "data/processed/standardized_with_morphology.parquet",
@@ -757,14 +890,21 @@
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__randomized_morph__seed123__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__randomized_morph__seed123__L128__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__randomized_morph__seed123__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__randomized_morph__seed123__L128__full/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__randomized_morph__seed123__L128__full/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__randomized_morph__seed123__L128__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__randomized_morph__seed123__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 21,
-    "run_id": "xlm-roberta-base__randomized_morph__seed456__L128__full",
+    "run_id": "xlm-roberta-base__revmain__randomized_morph__seed456__L128__full",
     "block": "morphology_mechanism_xlmr_base",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
       "data/processed/standardized_with_morphology.parquet",
@@ -795,17 +935,24 @@
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__randomized_morph__seed456__L128__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__randomized_morph__seed456__L128__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__randomized_morph__seed456__L128__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__randomized_morph__seed456__L128__full/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__randomized_morph__seed456__L128__full/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__randomized_morph__seed456__L128__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__randomized_morph__seed456__L128__full/predictions.csv"
+    ]
   },
   {
     "index": 22,
-    "run_id": "xlm-roberta-base__surface__seed42__L256__full",
+    "run_id": "xlm-roberta-base__revmain__surface__seed42__L256__full",
     "block": "finnish_length_sensitivity_xlmr_base",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "xlm-roberta-base",
       "--model-revision",
@@ -825,25 +972,32 @@
       "--warmup-ratio",
       "0.1",
       "--train-batch-size",
-      "16",
+      "8",
       "--eval-batch-size",
-      "32",
+      "16",
       "--gradient-accumulation-steps",
-      "1",
+      "2",
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__surface__seed42__L256__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L256__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L256__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L256__full/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L256__full/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L256__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L256__full/predictions.csv"
+    ]
   },
   {
     "index": 23,
-    "run_id": "xlm-roberta-base__surface__seed123__L256__full",
+    "run_id": "xlm-roberta-base__revmain__surface__seed123__L256__full",
     "block": "finnish_length_sensitivity_xlmr_base",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "xlm-roberta-base",
       "--model-revision",
@@ -863,25 +1017,32 @@
       "--warmup-ratio",
       "0.1",
       "--train-batch-size",
-      "16",
+      "8",
       "--eval-batch-size",
-      "32",
+      "16",
       "--gradient-accumulation-steps",
-      "1",
+      "2",
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__surface__seed123__L256__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L256__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L256__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L256__full/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L256__full/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L256__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L256__full/predictions.csv"
+    ]
   },
   {
     "index": 24,
-    "run_id": "xlm-roberta-base__surface__seed456__L256__full",
+    "run_id": "xlm-roberta-base__revmain__surface__seed456__L256__full",
     "block": "finnish_length_sensitivity_xlmr_base",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "xlm-roberta-base",
       "--model-revision",
@@ -901,25 +1062,32 @@
       "--warmup-ratio",
       "0.1",
       "--train-batch-size",
-      "16",
+      "8",
       "--eval-batch-size",
-      "32",
+      "16",
       "--gradient-accumulation-steps",
-      "1",
+      "2",
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__surface__seed456__L256__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L256__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L256__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L256__full/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L256__full/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L256__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L256__full/predictions.csv"
+    ]
   },
   {
     "index": 25,
-    "run_id": "xlm-roberta-base__surface__seed42__L512__full",
+    "run_id": "xlm-roberta-base__revmain__surface__seed42__L512__full",
     "block": "finnish_length_sensitivity_xlmr_base",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "xlm-roberta-base",
       "--model-revision",
@@ -939,25 +1107,32 @@
       "--warmup-ratio",
       "0.1",
       "--train-batch-size",
-      "16",
+      "8",
       "--eval-batch-size",
-      "32",
+      "16",
       "--gradient-accumulation-steps",
-      "1",
+      "2",
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__surface__seed42__L512__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L512__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L512__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L512__full/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L512__full/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L512__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L512__full/predictions.csv"
+    ]
   },
   {
     "index": 26,
-    "run_id": "xlm-roberta-base__surface__seed123__L512__full",
+    "run_id": "xlm-roberta-base__revmain__surface__seed123__L512__full",
     "block": "finnish_length_sensitivity_xlmr_base",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "xlm-roberta-base",
       "--model-revision",
@@ -977,25 +1152,32 @@
       "--warmup-ratio",
       "0.1",
       "--train-batch-size",
-      "16",
+      "8",
       "--eval-batch-size",
-      "32",
+      "16",
       "--gradient-accumulation-steps",
-      "1",
+      "2",
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__surface__seed123__L512__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L512__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L512__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L512__full/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L512__full/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L512__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L512__full/predictions.csv"
+    ]
   },
   {
     "index": 27,
-    "run_id": "xlm-roberta-base__surface__seed456__L512__full",
+    "run_id": "xlm-roberta-base__revmain__surface__seed456__L512__full",
     "block": "finnish_length_sensitivity_xlmr_base",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "xlm-roberta-base",
       "--model-revision",
@@ -1015,25 +1197,32 @@
       "--warmup-ratio",
       "0.1",
       "--train-batch-size",
-      "16",
+      "8",
       "--eval-batch-size",
-      "32",
+      "16",
       "--gradient-accumulation-steps",
-      "1",
+      "2",
       "--output-root",
       "outputs/encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__surface__seed456__L512__full/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L512__full",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L512__full/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L512__full/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L512__full/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L512__full/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L512__full/predictions.csv"
+    ]
   },
   {
     "index": 28,
-    "run_id": "xlm-roberta-base__surface__seed42__L128__frozen",
+    "run_id": "xlm-roberta-base__revmain__surface__seed42__L128__frozen",
     "block": "true_frozen_encoder_ablation",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "xlm-roberta-base",
       "--model-revision",
@@ -1062,17 +1251,24 @@
       "outputs/encoder",
       "--frozen-encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__surface__seed42__L128__frozen/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L128__frozen",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L128__frozen/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L128__frozen/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L128__frozen/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L128__frozen/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed42__L128__frozen/predictions.csv"
+    ]
   },
   {
     "index": 29,
-    "run_id": "xlm-roberta-base__surface__seed123__L128__frozen",
+    "run_id": "xlm-roberta-base__revmain__surface__seed123__L128__frozen",
     "block": "true_frozen_encoder_ablation",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "xlm-roberta-base",
       "--model-revision",
@@ -1101,17 +1297,24 @@
       "outputs/encoder",
       "--frozen-encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__surface__seed123__L128__frozen/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L128__frozen",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L128__frozen/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L128__frozen/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L128__frozen/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L128__frozen/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed123__L128__frozen/predictions.csv"
+    ]
   },
   {
     "index": 30,
-    "run_id": "xlm-roberta-base__surface__seed456__L128__frozen",
+    "run_id": "xlm-roberta-base__revmain__surface__seed456__L128__frozen",
     "block": "true_frozen_encoder_ablation",
     "command": [
-      "/tmp/hbb-venv/bin/python",
+      "python",
       "scripts/run_encoder_experiment.py",
       "--data",
-      "data/processed/standardized_with_morphology.parquet",
+      "data/processed/standardized_all.csv",
       "--model-name",
       "xlm-roberta-base",
       "--model-revision",
@@ -1140,6 +1343,13 @@
       "outputs/encoder",
       "--frozen-encoder"
     ],
-    "metrics_path": "outputs/encoder/xlm-roberta-base__surface__seed456__L128__frozen/metrics.csv"
+    "run_dir": "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L128__frozen",
+    "metrics_path": "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L128__frozen/metrics.csv",
+    "required_outputs": [
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L128__frozen/run_config.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L128__frozen/history.json",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L128__frozen/metrics.csv",
+      "outputs/encoder/xlm-roberta-base__revmain__surface__seed456__L128__frozen/predictions.csv"
+    ]
   }
 ]

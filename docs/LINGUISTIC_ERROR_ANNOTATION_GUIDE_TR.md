@@ -6,19 +6,39 @@ Bu anotasyon modelin tahminini yeniden etiketlemek için değil, doğru ve yanl�
 
 ## İş akışı
 
-1. `predictions.csv` en az `example_id, language, text, label, prediction` sütunlarını içermelidir.
-2. Kör örneklem oluşturun:
+1. Üç tam seed'in olasılıklarını birleştirin; tek bir “iyi görünen” seed seçmeyin:
 
 ```bash
-python scripts/sample_linguistic_errors.py predictions.csv \
-  --model xlm-roberta-base \
-  --per-cell 25 \
+python scripts/ensemble_encoder_predictions.py
+```
+
+2. Önceden belirlenen FP/FN örneklemini oluşturun. Aşağıdaki ayar dil başına en fazla 100 FP ve 100 FN seçer; daha az hata varsa satır çoğaltılmaz ve gerçek uygunluk sayısı raporlanır:
+
+```bash
+python scripts/sample_linguistic_errors.py \
+  artifacts/error_annotation/xlmr_base_surface_ensemble_predictions.csv \
+  --outcomes FP,FN \
+  --per-cell 100 \
   --seed 42
 ```
 
-3. Anotatörlere yalnız `annotation_blind.csv` verin. `annotation_key.csv` araştırmacıda kalmalıdır.
+3. `annotation_blind.csv` dosyasının iki bağımsız kopyasını oluşturun. Anotatörlere yalnız kendi kopyalarını verin; `annotation_key.csv` araştırmacıda ve gizli kalmalıdır.
 4. Her örneği birbirinden bağımsız en az iki uzman kodlasın.
-5. Anotasyon bittikten sonra uzmanlar arası uyum hesaplanmalı; uyuşmazlıklar üçüncü bir değerlendirici veya ortak karar ile çözülmelidir.
+5. Uzmanlar arası uyumu **uzlaşmadan önce** hesaplayın:
+
+```bash
+python scripts/calculate_annotation_agreement.py \
+  annotation_annotator_A.csv annotation_annotator_B.csv \
+  --labels annotator_A,annotator_B
+```
+
+6. `disagreements_for_adjudication.csv` içindeki uyuşmazlıkları üçüncü değerlendirici veya ortak karar ile çözün ve tekil `annotation_adjudicated.csv` oluşturun.
+7. Anahtar ancak kör kodlama bittikten sonra açılmalı ve sonuçlar şu komutla özetlenmelidir:
+
+```bash
+python scripts/summarize_error_annotations.py \
+  annotation_adjudicated.csv annotation_key.csv
+```
 
 ## Genel kodlama kuralı
 
@@ -80,11 +100,10 @@ Kararın anlaşılması özel kişi, olay, argo, topluluk normu veya kültürel 
 
 Her dil ve olgu için en az şu değerler raporlanmalıdır:
 
-- anotasyon sayısı,
-- olgu prevalansı,
-- FP ve FN içindeki prevalans,
-- olgu mevcut/yok iken hata oranı,
-- iki anotatörün uyumu,
-- morphology-aware yöntem ile surface baseline arasındaki eşleştirilmiş fark ve %95 güven aralığı.
+- her dilde mevcut ve örneklenen FP/FN sayısı,
+- FP ve FN içindeki olgu prevalansı ve karar verilemeyen örnek sayısı,
+- iki anotatörün ham uyumu ve Cohen's κ değeri,
+- uzlaşma sonrasında baskın olgu dağılımı,
+- morphology-aware yöntem ile surface baseline arasındaki **tam test kümesi üzerindeki** eşleştirilmiş fark ve %95 güven aralığı.
 
-Az sayıda örneğe sahip olgular için güçlü genelleme yapılmamalı; nitel örnekler yalnız nicel tablonun açıklaması olarak kullanılmalıdır.
+FP/FN-odaklı örneklemden genel-popülasyon hata oranı hesaplanmamalıdır; bunun için TP/TN dahil olasılıklı bir örnekleme tasarımı gerekir. Az sayıda örneğe sahip olgular için güçlü genelleme yapılmamalı; nitel örnekler yalnız nicel tablonun açıklaması olarak kullanılmalıdır.

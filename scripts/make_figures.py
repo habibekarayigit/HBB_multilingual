@@ -11,8 +11,21 @@ import numpy as np
 import pandas as pd
 
 
-LANGUAGE_ORDER = ["TR", "KO", "FI", "EN"]
-LANGUAGE_NAMES = {"TR": "Turkish", "KO": "Korean", "FI": "Finnish", "EN": "English"}
+LANGUAGE_ORDER = ["TR", "KO", "FI", "HU", "EN"]
+LANGUAGE_NAMES = {
+    "TR": "Turkish",
+    "KO": "Korean",
+    "FI": "Finnish",
+    "HU": "Hungarian",
+    "EN": "English",
+}
+
+
+def available_languages(values) -> list[str]:
+    present = set(map(str, values))
+    return [language for language in LANGUAGE_ORDER if language in present] + sorted(
+        present.difference(LANGUAGE_ORDER)
+    )
 MODEL_NAMES = {
     "word_1_2": "Word 1–2",
     "char_wb_3_5": "Character 3–5",
@@ -37,7 +50,8 @@ def tokenization_figure(stats_path: Path, output_dir: Path) -> None:
     stats = pd.read_csv(stats_path)
     stats = stats.loc[
         stats["scope"].eq("primary_test") & stats["label"].astype(str).eq("all")
-    ].set_index("language").loc[LANGUAGE_ORDER]
+    ].set_index("language")
+    stats = stats.loc[available_languages(stats.index)]
     x = np.arange(len(stats))
     labels = [LANGUAGE_NAMES[lang] for lang in stats.index]
 
@@ -75,7 +89,7 @@ def linear_figure(
         on=["language", "model"],
         validate="one_to_one",
     )
-    languages = LANGUAGE_ORDER
+    languages = available_languages(metrics["language"].unique())
     models = list(MODEL_NAMES)
     x = np.arange(len(languages))
     width = 0.19
@@ -113,7 +127,9 @@ def linear_figure(
 
 
 def overlap_figure(overlap_path: Path, output_dir: Path) -> None:
-    overlap = pd.read_csv(overlap_path).set_index("target").loc[["KO", "FI", "EN"]]
+    overlap = pd.read_csv(overlap_path).set_index("target")
+    targets = [language for language in available_languages(overlap.index) if language != "TR"]
+    overlap = overlap.loc[targets]
     x = np.arange(len(overlap))
     width = 0.34
     fig, ax = plt.subplots(figsize=(7.5, 4.5))
@@ -133,7 +149,11 @@ def overlap_figure(overlap_path: Path, output_dir: Path) -> None:
     )
     ax.set_xticks(x, [LANGUAGE_NAMES[lang] for lang in overlap.index])
     ax.set_ylabel("Covered by Turkish training tokens (%)")
-    ax.set_ylim(0, 75)
+    maximum = 100 * max(
+        overlap["target_type_coverage_by_source"].max(),
+        overlap["target_token_occurrence_coverage_by_source"].max(),
+    )
+    ax.set_ylim(0, min(105, max(10, maximum * 1.15)))
     ax.set_title("Observed XLM-R token overlap from Turkish training")
     ax.legend(frameon=False)
     ax.grid(axis="y", alpha=0.25)

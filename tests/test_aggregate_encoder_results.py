@@ -12,6 +12,7 @@ class AggregateEncoderResultsTests(unittest.TestCase):
             rows.append(
                 {
                     "model": "model",
+                    "model_revision": "a" * 40,
                     "view": "surface",
                     "max_length": 128,
                     "frozen_encoder": False,

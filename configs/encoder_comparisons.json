@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "metric": "macro_f1",
+  "expected_seeds": [42, 123, 456],
+  "replicates": 5000,
+  "bootstrap_seed": 20260311,
+  "comparisons": [
+    {
+      "name": "xlmr_base_minus_mbert",
+      "a": {"model": "xlm-roberta-base", "view": "surface", "max_length": 128, "frozen_encoder": false},
+      "b": {"model": "bert-base-multilingual-cased", "view": "surface", "max_length": 128, "frozen_encoder": false}
+    },
+    {
+      "name": "xlmr_large_minus_xlmr_base",
+      "a": {"model": "xlm-roberta-large", "view": "surface", "max_length": 128, "frozen_encoder": false},
+      "b": {"model": "xlm-roberta-base", "view": "surface", "max_length": 128, "frozen_encoder": false}
+    },
+    {
+      "name": "glot500_minus_xlmr_base",
+      "a": {"model": "cis-lmu/glot500-base", "view": "surface", "max_length": 128, "frozen_encoder": false},
+      "b": {"model": "xlm-roberta-base", "view": "surface", "max_length": 128, "frozen_encoder": false}
+    },
+    {
+      "name": "lemma_minus_surface",
+      "a": {"model": "xlm-roberta-base", "view": "lemma", "max_length": 128, "frozen_encoder": false},
+      "b": {"model": "xlm-roberta-base", "view": "surface", "max_length": 128, "frozen_encoder": false}
+    },
+    {
+      "name": "morph_minus_surface",
+      "a": {"model": "xlm-roberta-base", "view": "morph", "max_length": 128, "frozen_encoder": false},
+      "b": {"model": "xlm-roberta-base", "view": "surface", "max_length": 128, "frozen_encoder": false}
+    },
+    {
+      "name": "morph_minus_randomized_morph",
+      "a": {"model": "xlm-roberta-base", "view": "morph", "max_length": 128, "frozen_encoder": false},
+      "b": {"model": "xlm-roberta-base", "view": "randomized_morph", "max_length": 128, "frozen_encoder": false}
+    },
+    {
+      "name": "length_256_minus_128",
+      "languages": ["FI"],
+      "a": {"model": "xlm-roberta-base", "view": "surface", "max_length": 256, "frozen_encoder": false},
+      "b": {"model": "xlm-roberta-base", "view": "surface", "max_length": 128, "frozen_encoder": false}
+    },
+    {
+      "name": "length_512_minus_128",
+      "languages": ["FI"],
+      "a": {"model": "xlm-roberta-base", "view": "surface", "max_length": 512, "frozen_encoder": false},
+      "b": {"model": "xlm-roberta-base", "view": "surface", "max_length": 128, "frozen_encoder": false}
+    },
+    {
+      "name": "length_512_minus_256",
+      "languages": ["FI"],
+      "a": {"model": "xlm-roberta-base", "view": "surface", "max_length": 512, "frozen_encoder": false},
+      "b": {"model": "xlm-roberta-base", "view": "surface", "max_length": 256, "frozen_encoder": false}
+    },
+    {
+      "name": "full_minus_frozen",
+      "a": {"model": "xlm-roberta-base", "view": "surface", "max_length": 128, "frozen_encoder": false},
+      "b": {"model": "xlm-roberta-base", "view": "surface", "max_length": 128, "frozen_encoder": true}
+    }
+  ]
+}
