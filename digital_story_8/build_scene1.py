@@ -107,13 +107,14 @@ def face_set(key):
     """4 kare dondurur: [agiz acik/kapali][goz acik/kapali]. Yalnizca agiz ve goz bolgesi degisir."""
     if key in _face_cache:
         return _face_cache[key]
-    a, b, box = FACES[key]
+    a, b, box = FACES[key][:3]
+    grow = FACES[key][3] if len(FACES[key]) > 3 else 6  # goz/agiz bolgelerini ayirirken kullanilan genisletme
     A = Image.open(a).convert("RGB"); B = Image.open(b).convert("RGB").resize(A.size, Image.LANCZOS)
     d = np.abs(np.asarray(A, float) - np.asarray(B, float)).mean(2)
     m = np.zeros_like(d, bool)
     x0, y0, x1, y1 = box
     m[y0:y1, x0:x1] = d[y0:y1, x0:x1] > 30
-    m = ndimage.binary_dilation(m, iterations=6)
+    m = ndimage.binary_dilation(m, iterations=grow)
     lab, n = ndimage.label(m)
     comps = []
     for i in range(1, n + 1):
