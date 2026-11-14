@@ -100,7 +100,8 @@ def render(num, title, LINES, audio, PLAN, sfx=(), md_extra="", rules_md=""):
     for lid, st in placed.items():
         a = audio[lid]; i = int(st * SR); voice[i:i + len(a)] += a
     mix = voice.copy()
-    for st, a in sfx:
+    for item in sfx:
+        st, a = item(total) if callable(item) else item
         i = int(st * SR); mix[i:i + len(a)] += a[: len(mix) - i]
     mix = np.clip(mix, -0.98, 0.98)
     tmpwav = f"/tmp/scene{num}_mix.wav"
@@ -175,3 +176,40 @@ Karakterler önceki sahnelerle aynıdır (`characters/character_sheet.png`). Kı
     open(f"CEKIM_LISTESI_Scene{num}.md", "w", encoding="utf-8").write(md)
     print("OK", out, "sure:", tc(total))
     return segs
+
+
+def align_split(path, lines, extra_words=None):
+    """Tek kayitta okunan birden cok repligi, kelime hizalama (pocketsphinx) ile replik sinirlarindan boler."""
+    import re
+    from pocketsphinx import Decoder
+    subprocess.run([FF, "-y", "-loglevel", "error", "-i", path, "-ar", "16000", "-ac", "1", "-c:a", "pcm_s16le", "/tmp/_al.wav"], check=True)
+    with wave.open("/tmp/_al.wav") as w: data = w.readframes(w.getnframes())
+    subprocess.run([FF, "-y", "-loglevel", "error", "-i", path, "-ar", str(SR), "-ac", "1", "-c:a", "pcm_s16le", "/tmp/_al2.wav"], check=True)
+    with wave.open("/tmp/_al2.wav") as w: a = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32) / 32768
+    rms = np.sqrt(np.mean(a[np.abs(a) > 0.01] ** 2)); a = a * (0.1 / rms)
+    pk = np.abs(a).max(); a = a * 0.9 / pk if pk > 0.9 else a
+    d = Decoder(samprate=16000)
+    for wd, ph in (extra_words or {}).items():
+        if d.lookup_word(wd) is None: d.add_word(wd, ph, True)
+    words, owner = [], []
+    for li, l in enumerate(lines):
+        for wd in re.findall(r"[a-z']+", l.lower().replace("’", "'").replace("-", " ")):
+            wd = wd.strip("'")
+            if not wd: continue
+            assert d.lookup_word(wd) is not None, ("sozlukte yok", wd)
+            words.append(wd); owner.append(li)
+    d.set_align_text(" ".join(words)); d.start_utt(); d.process_raw(data, full_utt=True); d.end_utt()
+    segs = [(s.start_frame / 100, s.end_frame / 100) for s in d.seg() if not s.word.startswith(("<", "(", "["))]
+    assert len(segs) == len(words), (path, len(segs), len(words))
+    out, fade = [], int(0.01 * SR)
+    for li in range(len(lines)):
+        idx = [i for i, o in enumerate(owner) if o == li]
+        t0 = max(0, segs[idx[0]][0] - 0.10) if li == 0 else (segs[idx[0] - 1][1] + segs[idx[0]][0]) / 2
+        t1 = len(a) / SR if li == len(lines) - 1 else (segs[idx[-1]][1] + segs[idx[-1] + 1][0]) / 2
+        gap_after = None if li == len(lines) - 1 else round(segs[idx[-1] + 1][0] - segs[idx[-1]][1], 2)
+        x = a[int(t0 * SR):int(t1 * SR)].copy()
+        x[:fade] *= np.linspace(0, 1, fade); x[-fade:] *= np.linspace(1, 0, fade)
+        nz = np.where(np.abs(x) > 0.01)[0]
+        x = x[: min(len(x), nz[-1] + int(0.15 * SR))]
+        out.append(x); print(f"  {os.path.basename(path)} replik {li + 1}: {len(x) / SR:5.2f} sn, sonraki replige bosluk: {gap_after}")
+    return out
