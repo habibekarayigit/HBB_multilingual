@@ -94,11 +94,11 @@ from scipy import ndimage
 
 # (acik agizli kare, kapali agiz+kapali goz karesi, yuz kutusu)
 FACES = {
-    "ellis": ("shots/ellis_medium.png", "shots/ellis_medium_closed.png", (600, 180, 810, 400)),
-    "reyhan": ("shots/reyhan_v3.png", "shots/reyhan_v3_closed.png", (660, 180, 920, 500)),
-    "alex": ("shots/alex_v3.png", "shots/alex_v3_closed.png", (620, 150, 860, 420)),
-    "maya": ("shots/maya.png", "shots/maya_closed.png", (560, 190, 820, 450)),
-    "noah": ("shots/noah_v3.png", "shots/noah_v3_closed.png", (600, 200, 880, 470)),
+    "ellis": ("shots/ellis_medium_v5.png", "shots/ellis_medium_v5_closed.png", (600, 180, 810, 400)),
+    "reyhan": ("shots/reyhan_v5.png", "shots/reyhan_v5_closed.png", (660, 180, 920, 500)),
+    "alex": ("shots/alex_v5.png", "shots/alex_v5_closed.png", (620, 150, 860, 420)),
+    "maya": ("shots/maya_v5.png", "shots/maya_v5_closed.png", (560, 190, 820, 450)),
+    "noah": ("shots/noah_v5.png", "shots/noah_v5_closed.png", (600, 200, 880, 470)),
 }
 _face_cache = {}
 
@@ -121,10 +121,22 @@ def face_set(key):
         area = (lab == i).sum()
         if area > 500:
             comps.append((ndimage.center_of_mass(lab == i)[0], i))
-    comps.sort()
-    cys = [c[0] for c in comps]
-    k = int(np.argmax(np.diff(cys))) + 1  # en buyuk dikey bosluk: gozler | agiz
-    eye = np.isin(lab, [c[1] for c in comps[:k]]); mouth = np.isin(lab, [c[1] for c in comps[k:]])
+    # FIX: if comps is empty or too small, fallback to manual split based on box
+    if len(comps) < 2:
+        # Fallback: split box into eyes (top 1/3) and mouth (bottom 2/3)
+        cx, cy = (x0+x1)//2, (y0+y1)//2
+        eye_mask = np.zeros_like(d, bool)
+        mouth_mask = np.zeros_like(d, bool)
+        eye_mask[y0:y0+(y1-y0)//3, x0:x1] = True
+        mouth_mask[y0+(y1-y0)//3:y1, x0:x1] = True
+        comps = [(cy - (y1-y0)/6, 1), (cy + (y1-y0)/3, 2)] # dummy centers
+        eye = eye_mask; mouth = mouth_mask
+    else:
+        comps.sort()
+        cys = [c[0] for c in comps]
+        k = int(np.argmax(np.diff(cys))) + 1  # en buyuk dikey bosluk: gozler | agiz
+        eye = np.isin(lab, [c[1] for c in comps[:k]]); mouth = np.isin(lab, [c[1] for c in comps[k:]])
+    
     def soft(mask):
         mask = ndimage.binary_dilation(mask, iterations=5)
         return Image.fromarray((mask * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(3))
@@ -314,8 +326,8 @@ ELLIS = (0.06, 0.13, 0.93, 1.0)  # ust kenardaki kesik cerceveyi disarida biraki
 PLAN = [
     ("cards/cover.png", FULL, FULL, None, 4.6, "KAPAK: Theme 8 + Digital Story 8. Logo dönerek gelir, yazılar sırayla belirir. Jingle çalar ve replikten önce biter.", "cover"),
     ("cards/scene1_card.png", FULL, FULL, None, 2.4, "SAHNE GEÇİŞ KARESİ: “Scene 1 – The Announcement” yazısı kayarak belirir (seslendirilmez).", "card"),
-    ("backgrounds/classroom_wide_v3.png", FULL, FULL, None, 1.6, "Sınıfın genel görünümü; şeref köşesi sol duvarda, tahta sağda boş, öğrenciler arkası dönük, öğretmen önde.", "wide"),
-    ("backgrounds/classroom_wide_v3.png", FULL, (0.0, 0.12, 0.62, 0.74), "1a", "line", "Genel plandan Ms Ellis’e yaklaşılır; Ms Ellis konuşur (ağız hareketi), öğrenciler dinler.", "wide"),
+    ("backgrounds/classroom_wide_v5.png", FULL, FULL, None, 1.6, "Sınıfın genel görünümü; şeref köşesi sol duvarda, tahta sağda boş, öğrenciler arkası dönük, öğretmen önde.", "wide"),
+    ("backgrounds/classroom_wide_v5.png", FULL, (0.0, 0.12, 0.62, 0.74), "1a", "line", "Genel plandan Ms Ellis’e yaklaşılır; Ms Ellis konuşur (ağız hareketi), öğrenciler dinler.", "wide"),
     ("shots/ellis_medium.png", ELLIS, (0.12, 0.17, 0.90, 0.95), "1b", ("head", 3.9), "Ms Ellis orta plan, duyuruyu yapar (ağız hareketi + göz kırpma).", "ellis"),
     ("shots/iss.png", (0.0, 0.0, 0.88, 0.88), (0.12, 0.12, 1.0, 1.0), "1b", "tail", "ISS’den söz edilince ISS görseli gösterilir; kamera yörünge boyunca kayar.", None),
     ("shots/reyhan_v3.png", FULL, (0.05, 0.03, 0.95, 0.93), "2", "line", "Reyhan yakın plan, meraklı/şaşkın soru sorar (ağız hareketi + göz kırpma).", "reyhan"),
@@ -324,8 +336,8 @@ PLAN = [
     ("shots/ellis_medium.png", (0.12, 0.17, 0.90, 0.95), ELLIS, "5", "line", "Ms Ellis orta plan, onaylar ve planı anlatır (ağız hareketi + göz kırpma).", "ellis"),
     ("shots/maya.png", FULL, (0.08, 0.02, 0.98, 0.92), "6", "line", "Maya yakın plan, hayranlıkla konuşur (ağız hareketi + göz kırpma).", "maya"),
     ("shots/noah_v3.png", FULL, (0.02, 0.05, 0.92, 0.95), "7", "line", "Noah yakın plan, gökyüzünü işaret eder (ağız hareketi + göz kırpma).", "noah"),
-    ("backgrounds/classroom_wide_talk_v3.png", (0.0, 0.12, 0.62, 0.74), FULL, "8", "line", "Ms Ellis konuşur (ağız hareketi); kamera sınıfın geneline açılır.", "wide"),
-    ("shots/notebooks_fixed_v3.png", FULL, (0.30, 0.30, 1.0, 1.0), None, 3.2, "Öğrenciler defterlerini açar; kamera öğrencilere yaklaşır, radyo testi sahnesine geçiş (kararma).", None),
+    ("backgrounds/classroom_wide_talk_v5.png", (0.0, 0.12, 0.62, 0.74), FULL, "8", "line", "Ms Ellis konuşur (ağız hareketi); kamera sınıfın geneline açılır.", "wide"),
+    ("shots/notebooks_fixed_v5.png", FULL, (0.30, 0.30, 1.0, 1.0), None, 3.2, "Öğrenciler defterlerini açar; kamera öğrencilere yaklaşır, radyo testi sahnesine geçiş (kararma).", None),
 ]
 GAP = 0.40  # replikler arasi nefes payi
 
